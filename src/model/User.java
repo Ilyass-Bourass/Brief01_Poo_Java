@@ -2,14 +2,14 @@ package model;
 
 import java.util.UUID;
 public class User {
-    private String UUid;
+    private String Uuid;
     private String fullName;
     private String email;
     private String password;
     private String role;
 
-    public User(String UUid, String fullName, String email, String password, String role) {
-        this.UUid = UUid;
+    public User(String Uuid, String fullName, String email, String password, String role) {
+        this.Uuid = Uuid;
         this.fullName = fullName;
         this.email = email;
         this.password = password;
@@ -20,8 +20,8 @@ public class User {
         return fullName;
     }
 
-    public String getUUid() {
-        return UUid;
+    public String getUuid() {
+        return Uuid;
     }
 
     public String getEmail() {
@@ -32,8 +32,8 @@ public class User {
         return password;
     }
 
-    public void setUUid(String UUid) {
-        this.UUid = UUid;
+    public void setUUid(String Uuid) {
+        this.Uuid = Uuid;
     }
 
     public void setFullName(String fullName) {
@@ -58,10 +58,11 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
-                "UUid='" + UUid + '\'' +
+                "Uuid='" + Uuid + '\'' +
                 ", fullName='" + fullName + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
+                ", role='" + role + '\'' +
                 '}';
     }
 }

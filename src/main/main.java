@@ -2,9 +2,15 @@ package main;
 
 import java.util.Scanner;
 
+import services.AuthService;
+import Repositories.InMemoryClientRepository;
+
 public class main {
     public static void main(String[] args) {
         Scanner choice = new Scanner(System.in);
+        
+        AuthService authService = new AuthService(new InMemoryClientRepository());
+        authService.inscription("admin","admin@gmail.com", "poiuytr1", "admin");
         int number;
        do {
 
@@ -18,11 +24,24 @@ public class main {
             System.out.print("Votre choix : ");
 
             number = choice.nextInt();
+            choice.nextLine();
             System.out.println("----------------------------------------");
 
             switch (number) {
                 case 1:
-                    System.out.println(">> Vous avez choisi l'inscription");
+                    System.out.print("full Name : ");
+                    String fuLLName =choice.nextLine();
+
+                    System.out.print("email : ");
+                    String email =choice.nextLine();
+
+                    System.out.print("password: ");
+                    String password =choice.nextLine();
+
+                    String role ="user";
+                    authService.inscription(fuLLName, email, password, role);
+                    authService.afficherUtilisateurs();
+
                     break;
                 case 2:
                     System.out.println(">> Vous avez choisi la connexion");
