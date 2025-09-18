@@ -1,6 +1,7 @@
 package Repositories;
 import model.User;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -9,6 +10,8 @@ public class InMemoryClientRepository implements ClientRepository {
 
     public InMemoryClientRepository(){
         users=new HashMap<>();
+        User admin = new User("1487", "admin", "admin@gmail.com", "12345678", "admin");
+        users.put(admin.getEmail(), admin);
     }
 
    @Override
@@ -32,7 +35,7 @@ public class InMemoryClientRepository implements ClientRepository {
     }
 
     @Override
-    public Map<String, User> findAll(){
-        return users;
+    public Collection<User> findAll(){
+        return users.values();
     }
 }
