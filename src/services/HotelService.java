@@ -26,7 +26,19 @@ public class HotelService {
     }
 
     public void afficherHotels(){
-        hotelRepository.findAll().forEach(System.out::print);
+        hotelRepository.findAll().forEach(System.out::println);
+    }
+
+    public boolean supprimerHotel(String id){
+      
+        if(hotelRepository.removeHotel(id)){
+            System.out.println("l'hotel à été supprimer avec succés");
+            return true;
+       } else {
+            System.out.println("cette id n'existe pas dans la liste");
+            return false;
+       }
+
     }
 
 }

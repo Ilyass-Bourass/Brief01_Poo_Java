@@ -176,7 +176,10 @@ public class EspaseConsole {
                 }
 
                 case 4 -> {
-                    System.out.println("supprimer un hotel");
+                    hotelService.afficherHotels();
+                    System.out.println("saisir le id a supprimé : ");
+                    String idSupprimer = choice.nextLine();
+                    hotelService.supprimerHotel(idSupprimer);
                 }
 
                 case 5 -> {

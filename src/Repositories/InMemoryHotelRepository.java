@@ -18,6 +18,11 @@ public class InMemoryHotelRepository implements HotelRepository {
         hotels.put(id,hotel);
     }
 
+    @Override
+    public boolean removeHotel(String id){
+       return hotels.remove(id) !=null;
+    }
+
     @Override 
     public Hotel findById(String id){
         return hotels.get(id);
