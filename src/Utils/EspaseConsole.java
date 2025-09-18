@@ -1,7 +1,10 @@
 package Utils;
 
 import Repositories.InMemoryClientRepository;
+import Repositories.InMemoryHotelRepository;
+import model.User;
 import services.AuthService;
+import services.HotelService;
 
 import java.util.Scanner;
 
@@ -11,7 +14,6 @@ public class EspaseConsole {
         Scanner choice = new Scanner(System.in);
 
         AuthService authService = new AuthService(new InMemoryClientRepository());
-        //authService.inscription("admin","admin@gmail.com", "poiuytr1", "admin");
         int number;
         do {
 
@@ -52,11 +54,6 @@ public class EspaseConsole {
                     System.out.println("password: ");
                     String passwordLogin =choice.nextLine();
                     authService.login(emailLogin, passwordLogin);
-                    if(authService.getCurrentUser().toString() ==null){
-                        System.out.println("L'utilisateur n'existe pas");
-                    }else{
-                        System.out.println(authService.getCurrentUser().toString());
-                    }
                     break;
                 case 3 : 
                     System.out.println("la liste des utilsateurs");
@@ -75,13 +72,14 @@ public class EspaseConsole {
         choice.close();
     }
 
-    public static void espaseClient(){
+    public static void espaseClient(User currentUser){
         Scanner choice = new Scanner(System.in);
         int number;
         do {
             System.out.println("========================================");
             System.out.println("            Espace Client               ");
             System.out.println("========================================");
+            System.out.println(currentUser.toString());
             System.out.println("Veuillez choisir une option :");
             System.out.println("1 : Modifier le profil");
             System.out.println("2 : Faire une réservation");
@@ -125,10 +123,12 @@ public class EspaseConsole {
                 }
             }
         }while(number != 0);
+        choice.close();
     }
 
-    public static void espaseAdmin(){
+    public static void espaseAdmin(User currentUser){
         Scanner choice = new Scanner(System.in);
+        HotelService hotelService = new HotelService(new InMemoryHotelRepository());
         int number;
         do {
             System.out.println("========================================");
@@ -148,7 +148,7 @@ public class EspaseConsole {
 
             switch (number) {
                 case 1 -> {
-                    System.out.println("la liste des hotels");
+                    hotelService.afficherHotels();
                 }
 
                 case 2 -> {
@@ -156,7 +156,23 @@ public class EspaseConsole {
                 }
 
                 case 3 -> {
-                    System.out.println("ajouter un hotel");
+                    System.out.println("ajoute un hotel");
+                    System.out.print("nom hotel : ");
+                    String nameHotel= choice.nextLine();
+
+                    System.out.print("Adress hotel : ");
+                    String adressHotel = choice.nextLine();
+
+                    System.out.print("le nombre de chambres: ");
+                    int availableRooms =choice.nextInt();
+                    choice.nextLine();
+
+                    System.out.print("la note de hotel :");
+                    double note = choice.nextDouble();
+                    choice.nextLine();
+
+                    //System.out.println("nam:" + nameHotel+ "adress hotel : "+ adressHotel+ "nombre chambre :"+availableRooms+ "la note: "+note);
+                    hotelService.ajouterHotel(nameHotel, adressHotel, availableRooms, note);
                 }
 
                 case 4 -> {
@@ -181,7 +197,7 @@ public class EspaseConsole {
                 }
             }
         }while(number !=0);
-    
+        choice.close();
     }
 
 }

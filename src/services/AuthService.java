@@ -49,13 +49,14 @@
                     System.out.println("mot de passe incorrect");
                     return false;
                 }
-                if(clientRepository.findByMail(email).getRole().equals("client")){
-                EspaseConsole.espaseClient();
-                }else {
-                    EspaseConsole.espaseAdmin();
-                }
-                currentUser = clientRepository.findByMail(email);
+                this.currentUser = clientRepository.findByMail(email);
                 System.out.println("Connexion réussie !");
+                
+                if(clientRepository.findByMail(email).getRole().equals("client")){
+                EspaseConsole.espaseClient(currentUser);
+                }else {
+                    EspaseConsole.espaseAdmin(currentUser);
+                }
                 return true;
         }
 

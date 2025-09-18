@@ -10,7 +10,7 @@ public class InMemoryClientRepository implements ClientRepository {
 
     public InMemoryClientRepository(){
         users=new HashMap<>();
-        User admin = new User("1487", "admin", "admin@gmail.com", "12345678", "admin");
+        User admin = new User("1487", "admin", "a", "a", "admin");
         users.put(admin.getEmail(), admin);
     }
 
