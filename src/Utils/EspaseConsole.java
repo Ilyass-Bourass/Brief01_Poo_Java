@@ -141,7 +141,7 @@ public class EspaseConsole {
             System.out.println("5: Modifier un hotel");
             System.out.println("6: Voir historique des réservation");
             System.out.println("0: Déconnexion");
-            System.out.println("Votre choix : ");
+            System.out.print("Votre choix : ");
             number = choice.nextInt();
             choice.nextLine();
             System.out.println("----------------------------------------");
@@ -183,7 +183,28 @@ public class EspaseConsole {
                 }
 
                 case 5 -> {
-                    System.out.println("modifier un hotel");
+                    hotelService.afficherHotels();
+
+                    System.out.println("saisir le id a modifier : ");
+                    String idModifier = choice.nextLine();
+
+                    System.out.println("***** Modifier un hotel *****");
+                    
+                    System.out.print("nouveau nom : ");
+                    String nouveauName= choice.nextLine();
+
+                    System.out.print("Nouveau adress : ");
+                    String NouveauAdress = choice.nextLine();
+
+                    System.out.print("nouveau nombre de chambres: ");
+                    int nouveauNombreChambre =choice.nextInt();
+                    choice.nextLine();
+
+                    System.out.print("Nouveau note :");
+                    double nouveauNote = choice.nextDouble();
+                    choice.nextLine();
+
+                    hotelService.modifierHotel(idModifier,nouveauName,NouveauAdress,nouveauNombreChambre,nouveauNote);
                 }
 
                 case 6 -> {

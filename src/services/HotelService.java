@@ -26,7 +26,13 @@ public class HotelService {
     }
 
     public void afficherHotels(){
-        hotelRepository.findAll().forEach(System.out::println);
+        if(hotelRepository.findAll().size() == 0){
+            System.out.println("Aucun hotel dans notre systèm");
+        }
+        else {
+
+            hotelRepository.findAll().forEach(System.out::println);
+        }
     }
 
     public boolean supprimerHotel(String id){
@@ -39,6 +45,21 @@ public class HotelService {
             return false;
        }
 
+    }
+
+    public boolean modifierHotel(String id ,String nomHotel , String adressHotel , int avialableRooms ,double note){
+        if(hotelRepository.findById(id)==null){
+            System.out.println("cette id n'existe pas dans le systèm");
+            return false;
+        }
+        if(avialableRooms <=0){
+            System.out.println("la modification echoué le nombre de chambre doit être supérieur à zéro");
+            return false;
+        }
+
+        Hotel hotel = new Hotel(id, nomHotel, adressHotel, avialableRooms, note);
+        hotelRepository.updatHotel(id,hotel);
+        return true;
     }
 
 }
