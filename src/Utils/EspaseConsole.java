@@ -2,18 +2,27 @@ package Utils;
 
 import Repositories.InMemoryClientRepository;
 import Repositories.InMemoryHotelRepository;
+import Repositories.InMemoryReservationRepository;
 import model.User;
 import services.AuthService;
 import services.HotelService;
+import services.ReservationService;
 
 import java.util.Scanner;
 
 public class EspaseConsole {
+
+    private static final InMemoryClientRepository clientRepo = new InMemoryClientRepository();
+    private static final InMemoryHotelRepository hotelRepo = new InMemoryHotelRepository();
+    private static final InMemoryReservationRepository reservationRepo = new InMemoryReservationRepository();
+
+    private static final AuthService authService = new AuthService(clientRepo);
+    private static final HotelService hotelService = new HotelService(hotelRepo);
+    private static final ReservationService reservationService =new ReservationService(reservationRepo, hotelRepo);
     
     public static void espaseEntree(){
         Scanner choice = new Scanner(System.in);
 
-        AuthService authService = new AuthService(new InMemoryClientRepository());
         int number;
         do {
 
@@ -82,10 +91,11 @@ public class EspaseConsole {
             System.out.println(currentUser.toString());
             System.out.println("Veuillez choisir une option :");
             System.out.println("1 : Modifier le profil");
-            System.out.println("2 : Faire une réservation");
-            System.out.println("3 : Annuler une réservation");
-            System.out.println("4 : Consulter mes réservations");
-            System.out.println("5 : Déconnexion");
+            System.out.println("2 : Consulter les hotels");
+            System.out.println("3 : Faire une réservation");
+            System.out.println("4 : Annuler une réservation");
+            System.out.println("5 : Consulter mes réservations");
+            System.out.println("6 : Déconnexion");
             System.out.print("Votre choix : ");
 
             number = choice.nextInt();
@@ -97,22 +107,34 @@ public class EspaseConsole {
                 case 1-> {
                     System.out.println("Modifier le profil");
                 }
-                    
-                case 2-> {
-                    System.out.println("Faire une réservation");
+
+                case 2 -> {
+                    hotelService.afficherHotels();
                 }
+                    
                 case 3-> {
-                    System.out.println("Annuler une réservation");
+                    System.out.print("ID hôtel: ");
+                    String hotelId = choice.nextLine();
+                    System.out.print("Nombre de nuits: ");
+                    int nuits = choice.nextInt();
+                    choice.nextLine();
+
+                    reservationService.ajouterResversation(hotelId, currentUser.getUuid(), nuits);
                 }
 
                 case 4-> {
-                    System.out.println("consulter mes réservations");
+                    System.out.println("Annuler une réservation");
                 }
 
                 case 5-> {
+                    reservationService.afficherReservationsClient(currentUser.getUuid());
+                }
+
+                case 6-> {
                     System.out.println(">> Merci d'avoir utilisé notre système. Au revoir !");
                     EspaseConsole.espaseEntree();
                 }
+
                 case 0-> {
                     System.out.println(">> Merci d'avoir utilisé notre système notre client. Au revoir !");
                     EspaseConsole.espaseEntree();
@@ -128,7 +150,6 @@ public class EspaseConsole {
 
     public static void espaseAdmin(User currentUser){
         Scanner choice = new Scanner(System.in);
-        HotelService hotelService = new HotelService(new InMemoryHotelRepository());
         int number;
         do {
             System.out.println("========================================");

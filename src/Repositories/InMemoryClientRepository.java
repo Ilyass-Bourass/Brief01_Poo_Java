@@ -11,7 +11,9 @@ public class InMemoryClientRepository implements ClientRepository {
     public InMemoryClientRepository(){
         users=new HashMap<>();
         User admin = new User("1487", "admin", "a", "a", "admin");
+        User client = new User("1234", "user", "q", "q", "client");
         users.put(admin.getEmail(), admin);
+        users.put(client.getEmail(), client);
     }
 
    @Override
