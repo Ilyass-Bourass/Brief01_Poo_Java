@@ -123,7 +123,11 @@ public class EspaseConsole {
                 }
 
                 case 4-> {
-                    System.out.println("Annuler une réservation");
+                    
+                    System.out.println("***** Annuler une réservation *****");
+                    System.out.println("saisir le id reservation à supprimé");
+                    String idReservation = choice.nextLine();
+                    reservationService.annulerResrvation(idReservation, currentUser.getUuid());
                 }
 
                 case 5-> {

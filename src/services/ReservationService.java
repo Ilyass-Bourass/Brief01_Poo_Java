@@ -46,7 +46,7 @@ public class ReservationService {
 
         hotel.setAvailableRooms(hotel.getAvailableRooms() - 1);
 
-        System.out.println("Réservation créée avec succès !");
+        System.out.println("Réservation crée avec succès !");
         return true;
     }
 
@@ -63,4 +63,18 @@ public class ReservationService {
            System.out.println(reservationsClient);
        }
     }
+
+    public void annulerResrvation(String idResvation ,String idClient){
+          Resevation reservation = reservationRepository.findById(idResvation);
+        if(reservation ==null || reservation.getClientUuid()!=idClient){
+            System.out.println("Cette reservation n'appartient pas à votre liste");
+        }else {
+            Hotel hotel = hotelRepository.findById(reservation.getHotelUuid());
+            hotel.setAvailableRooms(hotel.getAvailableRooms() +1);
+            reservationRepository.removeReservation(idResvation);
+            System.out.println("La réservation à été supprimer avec succée");
+        }
+    }
+
+    
 }
